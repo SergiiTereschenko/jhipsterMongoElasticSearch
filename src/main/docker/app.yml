@@ -1,0 +1,20 @@
+version: '2'
+services:
+    jhipstermongoelasticsearch-app:
+        image: jhipstermongoelasticsearch
+        environment:
+            - SPRING_PROFILES_ACTIVE=prod,swagger
+            - SPRING_DATA_MONGODB_URI=mongodb://jhipstermongoelasticsearch-mongodb:27017
+            - SPRING_DATA_MONGODB_DATABASE=jhipsterMongoElasticSearch
+            - JHIPSTER_SLEEP=10 # gives time for the database to boot before the application
+            - SPRING_DATA_ELASTICSEARCH_CLUSTER_NODES=jhipstermongoelasticsearch-elasticsearch:9300
+        ports:
+            - 8080:8080
+    jhipstermongoelasticsearch-mongodb:
+        extends:
+            file: mongodb.yml
+            service: jhipstermongoelasticsearch-mongodb
+    jhipstermongoelasticsearch-elasticsearch:
+        extends:
+            file: elasticsearch.yml
+            service: jhipstermongoelasticsearch-elasticsearch
